@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melody Fitri Cheviola | Personal Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0d0d0d',
+                        darkCard: '#15151a',
+                        darkBorder: '#262630',
+                        softPink: '#FFB6C1',
+                        accentPink: '#F48FB1',
+                        neonPink: '#EC4899'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        glow: '0 0 25px -5px rgba(244, 143, 177, 0.4)',
+                        glowStrong: '0 0 40px 2px rgba(236, 72, 153, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Alpine JS for Mobile Navigation & Interactions -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d0d;
+            color: #E0E0E0;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262630;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F48FB1;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-nav {
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 182, 193, 0.15);
+        }
+
+        .glass-card {
+            background: rgba(21, 21, 26, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 182, 193, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(244, 143, 177, 0.45);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(244, 143, 177, 0.25);
+        }
+
+        /* Text Gradient Effect */
+        .text-gradient-pink {
+            background: linear-gradient(135deg, #FFB6C1 0%, #F48FB1 50%, #EC4899 100%);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Ambient Glow Background Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body x-data="{ mobileMenuOpen: false }" class="relative antialiased selection:bg-accentPink selection:text-black">
+
+    <!-- Glowing Background Elements -->
+    <div class="blob w-96 h-96 bg-accentPink top-10 left-[-100px]"></div>
+    <div class="blob w-80 h-80 bg-neonPink top-[30%] right-[-100px]"></div>
+    <div class="blob w-[32rem] h-[32rem] bg-softPink bottom-[15%] left-1/4"></div>
+
+    <!-- 1. NAVBAR -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#hero" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-accentPink to-softPink flex items-center justify-center font-bold text-black shadow-glow group-hover:scale-105 transition-transform">
+                        M
+                    </div>
+                    <span class="text-xl font-bold tracking-wide text-white group-hover:text-softPink transition-colors">
+                        Melody<span class="text-accentPink">.Cheviola</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Navigation Menu -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm font-medium">
+                    <a href="#hero" class="px-3 py-2 text-gray-300 hover:text-softPink transition-colors hover:bg-white/5 rounded-lg">Beranda</a>
+                    <a href="#about" class="px-3 py-2 text-gray-300 hover:text-softPink transition-colors hover:bg-white/5 rounded-lg">Tentang</a>
+                    <a href="#projects" class="px-3 py-2 text-gray-300 font-bold hover:text-softPink transition-colors hover:bg-white/5 rounded-lg">Projek</a>
+                    <a href="#experience" class="px-3 py-2 text-gray-300 hover:text-softPink transition-colors hover:bg-white/5 rounded-lg">Organisasi</a>
+                    <a href="#achievements" class="px-3 py-2 text-gray-300 hover:text-softPink transition-colors hover:bg-white/5 rounded-lg">Prestasi</a>
+                    <a href="#skills" class="px-3 py-2 text-gray-300 hover:text-softPink transition-colors hover:bg-white/5 rounded-lg">Keahlian</a>
+                    <a href="#contact" class="ml-4 px-5 py-2.5 rounded-full bg-gradient-to-r from-accentPink to-neonPink text-black font-semibold hover:shadow-glow hover:opacity-95 transition-all">
+                        Contact Me
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+<div class="md:hidden">
+    <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 text-gray-300 hover:text-softPink focus:outline-none">
+        <!-- Ikon Hamburger (Menu) -->
+        <svg x-show="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <!-- Ikon Close (X) -->
+        <svg x-show="mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+</div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden border-b border-darkBorder bg-darkCard/95 backdrop-blur-xl px-4 pt-2 pb-6 space-y-2">
+            <a href="#hero" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md text-base text-gray-300 hover:text-softPink hover:bg-white/5">Beranda</a>
+            <a href="#about" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md text-base text-gray-300 hover:text-softPink hover:bg-white/5">Tentang</a>
+            <a href="#projects" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md text-base text-accentPink font-bold hover:bg-accentPink/10">Projek</a>
+            <a href="#experience" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md text-base text-gray-300 hover:text-softPink hover:bg-white/5">Organisasi</a>
+            <a href="#achievements" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md text-base text-gray-300 hover:text-softPink hover:bg-white/5">Prestasi</a>
+            <a href="#skills" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-md text-base text-gray-300 hover:text-softPink hover:bg-white/5">Keahlian</a>
+            <a href="#contact" @click="mobileMenuOpen = false" class="block w-full text-center mt-4 px-5 py-3 rounded-xl bg-gradient-to-r from-accentPink to-neonPink text-black font-semibold">
+                Contact Me
+            </a>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION -->
+    <section id="hero" class="min-h-screen pt-28 pb-16 flex items-center justify-center relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accentPink/40 bg-accentPink/10 text-softPink text-sm font-semibold">
+                        <span class="w-2.5 h-2.5 rounded-full bg-accentPink animate-ping"></span>
+                        SISWI AKTIF SMKN 4 MALANG 2026
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
+                        Halo, Saya <br class="hidden sm:inline"/>
+                        <span class="text-gradient-pink">Melody Fitri Cheviola</span>
+                    </h1>
+
+                    <p class="text-xl text-softPink font-semibold tracking-wide">
+                       People Call Me <span class="text-white underline decoration-accentPink decoration-2 underline-offset-4">Melody</span> but you can call my nickname <span class="text-white underline decoration-accentPink decoration-2 underline-offset-4">Vio</span> 
+                    </p>
+
+                    <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Lahir di Malang, 14 September 2011. Memiliki passion tinggi di bidang Rekayasa Perangkat Lunak, Desain UI/UX serta memiliki bakat di bidang seni musik, vokal, dan dance.<br>"kegagalan adalah keberhasilan yang tertunda, saya percaya bahwa setiap tantangan adalah peluang untuk tumbuh dan belajar"
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                        <a href="#projects" class="px-8 py-4 rounded-xl bg-gradient-to-r from-accentPink to-neonPink text-black font-bold flex items-center gap-2 shadow-glow hover:shadow-glowStrong hover:-translate-y-1 transition-all">
+                            <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                            Lihat Projek Saya
+                        </a>
+                        <a href="#contact" class="px-8 py-4 rounded-xl bg-darkCard border border-darkBorder hover:border-accentPink text-white font-semibold flex items-center gap-2 hover:-translate-y-1 transition-all">
+                            <i data-lucide="phone" class="w-5 h-5 text-softPink"></i>
+                            Hubungi Saya
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Photo Card (nadaa.jpeg) -->
+                <div class="lg:col-span-4 flex justify-right">
+                    <div class="relative w-full max-w-md">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-accentPink to-neonPink rounded-3xl blur-2xl opacity-30 transform rotate-6 scale-95"></div>
+                        
+                        <div class="relative glass-card p-4 rounded-3xl border border-accentPink/40 text-center space-y-4">
+                            <div class="relative w-full aspect-[3/4] rounded-2xl overflow-hidden border border-accentPink/30 group">
+                                <img src="nadaa.jpeg" alt="Foto Melody Fitri Cheviola" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x500/15151a/F48FB1?text=Melody+Fitri'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+                                <div class="absolute bottom-4 left-4 right-4 text-left">
+                                    <p class="text-xs font-semibold text-accentPink">Student in SMKN 4 Malang</p> 
+                                    <h3 class="text-xl font-bold text-white">Melody Fitri C.</h3>
+                                    <p class="text-xs text-gray-300">@imnadnad0914</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-around py-2 border-t border-darkBorder text-xs text-gray-300">
+                                <span class="flex items-center gap-1"><i data-lucide="code" class="w-4 h-4 text-accentPink"></i> Web Development</span>
+                                <span class="flex items-center gap-1"><i data-lucide="mic" class="w-4 h-4 text-accentPink"></i> Vocal</span>
+                                <span class="flex items-center gap-1"><i data-lucide="dancer" class="w-4 h-4 text-accentPink"></i> Dance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. TENTANG SAYA (ABOUT ME) -->
+    <section id="about" class="py-20 relative z-10 border-t border-darkBorder/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <h2 class="text-xs font-bold tracking-widest text-accentPink uppercase">Identitas Saya</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Tentang Saya</p>
+                <div class="w-16 h-1 bg-accentPink mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Academic Timeline Card -->
+                <div class="lg:col-span-7 glass-card p-8 rounded-3xl space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="p-3 bg-accentPink/10 rounded-2xl text-accentPink">
+                            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Riwayat Pendidikan</h3>
+                    </div>
+
+                    <div class="space-y-6 pl-4 border-l-2 border-accentPink/30">
+                        <!-- SMK -->
+                         <div class="relative pl-6">
+                            <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-neonPink border-4 border-darkBg"></div>
+                            <span class="text-xs font-semibold text-neonPink">Sekarang</span>
+                            <h4 class="text-lg font-bold text-white">SMKN 4 MALANG (GRAFIKA)</h4>
+                            <p class="text-sm text-gray-300 mt-1">
+                                Kelas 10 RPL C (Absen 21). Fokus mendalami ilmu Rekayasa Perangkat Lunak, algoritma pemrograman, serta desain UI/UX.
+                            </p>
+                        </div>
+
+                        <!-- SMP -->
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-accentPink border-4 border-darkBg"></div>
+                            <span class="text-xs font-semibold text-accentPink">2023 - 2026 (3 Tahun)</span>
+                            <h4 class="text-lg font-bold text-white">SMP Negeri 1 Turen (SPENZA)</h4>
+                            <p class="text-sm text-gray-300 mt-1">
+                                Tempat awal mula potensi kepemimpinan dan prestasi semakin berkembang pesat, baik di organisasi OSIS, Adiwiyata, maupun bidang seni musik.
+                            </p>
+                        </div>
+
+                        <!-- SD -->
+                        <div class="relative pl-6">
+                            <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-accentPink border-4 border-darkBg"></div>
+                            <span class="text-xs font-semibold text-accentPink">2017 - 2023 (6 Tahun)</span>
+                            <h4 class="text-lg font-bold text-white">SDK Dunia Terang</h4>
+                            <p class="text-sm text-gray-300 mt-1">
+                                Berpartisipasi aktif dalam Kompetisi Sains Nasional (KSN) bidang Matematika hingga ke tingkat kabupaten.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Languages, Soft Skills & Hobbies Card -->
+                <div class="lg:col-span-5 space-y-6">
+                    <!-- Multilingual Ability -->
+                    <div class="glass-card p-6 rounded-3xl space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-3 bg-accentPink/10 rounded-2xl text-accentPink">
+                                <i data-lucide="languages" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Penguasaan Bahasa</h3>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3 text-center">
+                            <div class="p-3 bg-darkCard rounded-xl border border-darkBorder">
+                                <p class="text-sm font-bold text-white">Indonesia</p>
+                                <p class="text-[10px] text-gray-400">Fasih / Native</p>
+                            </div>
+                            <div class="p-3 bg-darkCard rounded-xl border border-darkBorder">
+                                <p class="text-sm font-bold text-white">Inggris (US)</p>
+                                <p class="text-[10px] text-gray-400">Aktif Berkomunikasi</p>
+                            </div>
+                            <div class="p-3 bg-darkCard rounded-xl border border-darkBorder">
+                                <p class="text-sm font-bold text-white">Mandarin</p>
+                                <p class="text-[10px] text-gray-400">Komunikasi Dasar</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soft Skills & Hobbies -->
+                    <div class="glass-card p-6 rounded-3xl space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="p-3 bg-accentPink/10 rounded-2xl text-accentPink">
+                                <i data-lucide="brain" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white">Soft Skills & Hobi</h3>
+                        </div>
+                        <div class="space-y-3 text-sm text-gray-300">
+                            <div class="p-3 bg-darkCard rounded-xl border border-darkBorder flex items-center gap-3">
+                                <i data-lucide="sparkles" class="w-5 h-5 text-accentPink shrink-0"></i>
+                                <span>Penalaran Kritis & Problem Solving</span>
+                            </div>
+                            <div class="p-3 bg-darkCard rounded-xl border border-darkBorder flex items-center gap-3">
+                                <i data-lucide="mic" class="w-5 h-5 text-accentPink shrink-0"></i>
+                                <span>Public Speaking yang Lancar & Percaya Diri</span>
+                            </div>
+                            <div class="p-3 bg-darkCard rounded-xl border border-darkBorder flex items-center justify-between">
+                                <span class="font-semibold text-white">Hobi Utama:</span>
+                                <div class="flex gap-2">
+                                    <span class="px-3 py-1 bg-accentPink/10 border border-accentPink/30 text-white rounded-lg text-xs font-bold">🎤 Menyanyi</span>
+                                    <span class="px-3 py-1 bg-accentPink/10 border border-accentPink/30 text-white rounded-lg text-xs font-bold">💃 Dance</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SEKSI PROJEK (MENONJOL & JELAS) -->
+    <section id="projects" class="py-24 relative z-10 bg-gradient-to-b from-darkBg via-darkCard to-darkBg border-y-2 border-accentPink/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="px-4 py-1.5 rounded-full bg-accentPink/20 border border-accentPink text-softPink text-xs font-extrabold uppercase tracking-widest shadow-glow">
+                    PORTFOLIO PROJECTS
+                </span>
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-white">
+                    Projek Saya
+                </h2>
+                <p class="text-gray-300 text-base">
+                    Berikut adalah hasil perancangan aplikasi dan website yang telah saya kembangkan.
+                </p>
+            </div>
+
+            <!-- DYNAMIC BEAUTY FEATURED PROJECT CARD -->
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border-2 border-accentPink/50 bg-gradient-to-br from-darkCard via-black to-darkCard relative overflow-hidden shadow-glowStrong">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Left Side: Project Info & Logo -->
+                    <div class="lg:col-span-5 space-y-6">
+                        
+                        <!-- Logo Salon Image Display (Merah Muda Putih Pasir Ilustrasi Salon Logo.png) -->
+                        <div class="flex items-center gap-4 bg-black/60 p-4 rounded-2xl border border-accentPink/30">
+                            <img src="Merah Muda Putih Pasir Ilustrasi Salon Logo.png" alt="Logo Dynamic Beauty Salon" class="w-16 h-16 rounded-xl object-contain bg-white/10 p-1 border border-accentPink/40 shrink-0" onerror="this.src='https://placehold.co/100x100/15151a/F48FB1?text=Dynamic+Beauty'">
+                            <div>
+                                <span class="text-xs font-bold text-accentPink uppercase tracking-wider">Aplikasi & Web Salon</span>
+                                <h3 class="text-2xl font-extrabold text-white">Dynamic Beauty</h3>
+                                <p class="text-xs text-gray-400">Management Customer System</p>
+                            </div>
+                        </div>
+
+                        <p class="text-gray-200 text-sm sm:text-base leading-relaxed">
+                            <strong>Dynamic Beauty</strong> adalah projek sistem manajemen pelanggan salon kecantikan modern. Dirancang untuk mempermudah reservasi layanan perawatan rambut/wajah, melihat paket promo, informasi rating, hingga penjadwalan antrean secara jelas.
+                        </p>
+
+                        <!-- Tech Stack Badges -->
+                        <div class="space-y-2">
+                            <p class="text-xs font-bold text-softPink">Teknologi & Tools Yang Digunakan:</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-accentPink/10 border border-accentPink/30 text-softPink rounded-lg text-xs font-semibold">Figma</span>
+                                <span class="px-3 py-1 bg-accentPink/10 border border-accentPink/30 text-softPink rounded-lg text-xs font-semibold">UI/UX Design</span>
+                                <span class="px-3 py-1 bg-accentPink/10 border border-accentPink/30 text-softPink rounded-lg text-xs font-semibold">Web Landing Page</span>
+                                <span class="px-3 py-1 bg-accentPink/10 border border-accentPink/30 text-softPink rounded-lg text-xs font-semibold">Mobile App Prototype</span>
+                            </div>
+                        </div>
+
+                        <!-- Figma Link CTA Button -->
+                        <div class="pt-2">
+                            <a href="https://www.figma.com/design/LuE3uK1R52Fvplx1c31fqd/Mockup-App-Web-Salon?node-id=12-2&t=C8NwfelFyAU9ML8P-1" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-accentPink to-neonPink text-black font-extrabold text-base shadow-glow hover:shadow-glowStrong hover:scale-105 transition-all">
+                                <i data-lucide="external-link" class="w-5 h-5"></i>
+                                Buka Figma Mockup Projek
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Project Screenshots Gallery (image_7f988d.jpg & image_7f9b37.png) -->
+                    <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-12 gap-4">
+                        
+                        <!-- Web View Image Card (image_7f988d.jpg) -->
+                        <div class="sm:col-span-7 glass-card p-3 rounded-2xl border border-accentPink/30 space-y-2 group">
+                            <div class="flex items-center justify-between text-xs text-gray-400 px-1">
+                                <span class="font-semibold text-white flex items-center gap-1"><i data-lucide="monitor" class="w-3.5 h-3.5 text-accentPink"></i> Web View</span>
+                                <span>Desktop Landing</span>
+                            </div>
+                            <div class="relative rounded-xl overflow-hidden border border-darkBorder aspect-[4/3]">
+                                <img src="webimage.png" alt="Tampilan Web Dynamic Beauty Salon" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/15151a/F48FB1?text=Web+Salon+Preview'">
+                            </div>
+                        </div>
+
+                        <!-- Mobile App View Image Card (image_7f9b37.png) -->
+                        <div class="sm:col-span-5 glass-card p-3 rounded-2xl border border-accentPink/30 space-y-2 group">
+                            <div class="flex items-center justify-between text-xs text-gray-400 px-1">
+                                <span class="font-semibold text-white flex items-center gap-1"><i data-lucide="smartphone" class="w-3.5 h-3.5 text-accentPink"></i> Mobile View</span>
+                                <span>App Interface</span>
+                            </div>
+                            <div class="relative rounded-xl overflow-hidden border border-darkBorder aspect-[9/16] max-h-[280px] sm:max-h-none mx-auto">
+                                <img src="mobileimage.png" alt="Tampilan Mobile App Dynamic Beauty Salon" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/300x500/15151a/F48FB1?text=Mobile+App+Preview'">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. ORGANISASI & PRESTASI -->
+    <section id="experience" class="py-20 relative z-10 border-t border-darkBorder/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <h2 class="text-xs font-bold tracking-widest text-accentPink uppercase">Pengalaman & Kejuaraan</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Organisasi & Prestasi</p>
+                <div class="w-16 h-1 bg-accentPink mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Organisasi Card List -->
+                <div class="glass-card p-8 rounded-3xl space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="p-3 bg-accentPink/10 rounded-2xl text-accentPink">
+                            <i data-lucide="users" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Pengalaman Organisasi</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 bg-darkCard rounded-2xl border border-darkBorder space-y-1">
+                            <div class="flex justify-between items-center text-xs text-accentPink font-semibold">
+                                <span>OSIS SMPN 1 Turen (SPENZA)</span>
+                                <span>2024</span>
+                            </div>
+                            <p class="text-base font-bold text-white">Ketua Seksi Bidang Adiwiyata (2024)</p>
+                            <p class="text-xs text-gray-400">Aktif mengagendakan program lingkungan</p>
+                        </div>
+
+                        <div class="p-4 bg-darkCard rounded-2xl border border-darkBorder space-y-1">
+                            <div class="flex justify-between items-center text-xs text-accentPink font-semibold">
+                                <span>OSIS SMPN 1 Turen (SPENZA)</span>
+                                <span>2025</span>
+                            </div>
+                            <p class="text-base font-bold text-white">Ketua Seksi Bidang Bela Negara (2025)</p>
+                            <p class="text-xs text-gray-400">Aktif mengagendakan program pembinaan karakter kebangsaan.</p>
+                        </div>
+
+                        <div class="p-4 bg-darkCard rounded-2xl border border-darkBorder space-y-1">
+                            <div class="flex justify-between items-center text-xs text-accentPink font-semibold">
+                                <span>Organisasi Adiwiyata</span>
+                                <span>Okt 2023 - 2025</span>
+                            </div>
+                            <p class="text-base font-bold text-white">Ketua Adiwiyata Periode 2024/2025</p>
+                            <p class="text-xs text-gray-400">Memimpin berbagai aksi gerakan sekolah peduli dan berbudaya lingkungan hidup.</p>
+                        </div>
+
+                        <div class="p-4 bg-darkCard rounded-2xl border border-darkBorder space-y-1">
+                            <div class="flex justify-between items-center text-xs text-accentPink font-semibold">
+                                <span>Sekolah Siaga Kependudukan</span>
+                                <span>2025</span>
+                            </div>
+                            <p class="text-base font-bold text-white">Anggota Kader SSK</p>
+                            <p class="text-xs text-gray-400">Edukasi materi kependudukan dan penyiapan generasi berencana di sekolah.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prestasi Card List -->
+                <div id="achievements" class="glass-card p-8 rounded-3xl space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="p-3 bg-accentPink/10 rounded-2xl text-accentPink">
+                            <i data-lucide="trophy" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Daftar Prestasi</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 bg-darkCard rounded-2xl border border-darkBorder flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold text-amber-400 uppercase">Sains & Matematika</span>
+                                <p class="text-base font-bold text-white">OSN Matematika Kabupaten Malang</p>
+                                <p class="text-xs text-gray-400">Olimpiade Sains Nasional Tingkat Kabupaten Jenjang SMP</p>
+                            </div>
+                            <span class="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-lg text-xs font-bold">2025</span>
+                        </div>
+
+                        <div class="p-4 bg-darkCard rounded-2xl border border-darkBorder flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold text-accentPink uppercase">Seni Vokal</span>
+                                <p class="text-base font-bold text-white">FLS3N Menyanyi Solo Provinsi</p>
+                                <p class="text-xs text-gray-400">Festival dan Lomba Seni Siswa Nasional</p>
+                            </div>
+                            <span class="px-3 py-1 bg-accentPink/10 text-accentPink border border-accentPink/30 rounded-lg text-xs font-bold">2025</span>
+                        </div>
+
+                        <div class="p-4 bg-darkCard rounded-2xl border border-darkBorder flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold text-emerald-400 uppercase">Musik Band</span>
+                                <p class="text-base font-bold text-white">Juara 2 Lomba Band SMP</p>
+                                <p class="text-xs text-gray-400">Hari Jadi ke-1265 Kabupaten Malang</p>
+                            </div>
+                            <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-bold">2025</span>
+                        </div>
+
+                        <div class="p-4 bg-darkCard rounded-2xl border border-darkBorder flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold text-blue-400 uppercase">Kompetisi SD</span>
+                                <p class="text-base font-bold text-white">KSN Matematika Kabupaten</p>
+                                <p class="text-xs text-gray-400">Kompetisi Sains Nasional Jenjang SD</p>
+                            </div>
+                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded-lg text-xs font-bold">2022</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. KEAHLIAN TEKNIS (SKILLS) -->
+    <section id="skills" class="py-20 relative z-10 border-t border-darkBorder/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <h2 class="text-xs font-bold tracking-widest text-accentPink uppercase">Penguasaan Tools & Bahasa</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Keahlian Teknis</p>
+                <div class="w-16 h-1 bg-accentPink mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4">
+                <div class="glass-card p-5 rounded-2xl text-center space-y-2 hover:border-orange-500 transition-colors">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold text-lg"><img src="htmllogo.webp" alt="HTML Icon" class="w-6 h-6"></div>
+                    <p class="text-sm font-bold text-white">HTML</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center space-y-2 hover:border-blue-500 transition-colors">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-lg"><img src="csslogo.png" alt="CSS Icon" class="w-6 h-6"></div>
+                    <p class="text-sm font-bold text-white">CSS</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center space-y-2 hover:border-yellow-400 transition-colors">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-yellow-400/20 text-yellow-300 flex items-center justify-center font-bold text-lg"><img src="logojs.png" alt="JavaScript Icon" class="w-6 h-6"></div>
+                    <p class="text-sm font-bold text-white">JavaScript</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center space-y-2 hover:border-green-500 transition-colors">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-green-500/20 text-green-400 flex items-center justify-center font-bold text-lg"><img src="logopy.png" alt="Python Icon" class="w-6 h-6"></div>
+                    <p class="text-sm font-bold text-white">Python</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center space-y-2 hover:border-cyan-400 transition-colors">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-cyan-400/20 text-cyan-300 flex items-center justify-center font-bold text-lg"><img src="canvalogo.png" alt="Canva Icon" class="w-6 h-6"></div>
+                    <p class="text-sm font-bold text-white">Canva</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center space-y-2 hover:border-purple-400 transition-colors">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-purple-400/20 text-purple-300 flex items-center justify-center font-bold text-lg"><img src="logofigma.png" alt="Figma Icon" class="w-6 h-6"></div>
+                    <p class="text-sm font-bold text-white">Figma</p>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center space-y-2 col-span-2 sm:col-span-1 hover:border-pink-500 transition-colors">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-lg"><img src="flowgorithm.webp" alt="Flowgorithm Icon" class="w-6 h-6"></div>
+                    <p class="text-sm font-bold text-white">Flowgorithm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. HUBUNGI SAYA (HANYA SATU SEKSI, TANPA FORM INPUT) -->
+    <section id="contact" class="py-20 relative z-10 border-t border-darkBorder/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <h2 class="text-xs font-bold tracking-widest text-accentPink uppercase">Mari Terhubung</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-white">Hubungi Saya</p>
+                <p class="text-gray-300 text-sm">Minat berkolaborasi atau ada hal yang ingin ditanyakan? Silakan sapa saya melalui media di bawah ini!</p>
+                <div class="w-16 h-1 bg-accentPink mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                
+                <!-- WhatsApp -->
+                <a href="https://wa.me/6281332996143" target="_blank" class="glass-card p-8 rounded-3xl flex flex-col items-center text-center group hover:scale-105 transition-all">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6 group-hover:bg-emerald-500 group-hover:text-black transition-colors">
+                        <img src="Whatsapp logo.png" class="w-8 h-8">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1">WhatsApp & Phone</h3>
+                    <p class="text-xs text-gray-400 mb-4">Contact Saya melalui WhatsApp atau Telepon</p>
+                    <span class="px-4 py-2 rounded-xl bg-darkCard border border-darkBorder text-emerald-400 font-bold text-sm group-hover:border-emerald-500">
+                        081332996143
+                    </span>
+                </a>
+
+                <!-- Gmail -->
+                <a href="mailto:cheviolachen@gmail.com" class="glass-card p-8 rounded-3xl flex flex-col items-center text-center group hover:scale-105 transition-all">
+                    <div class="w-16 h-16 rounded-2xl bg-accentPink/10 border border-accentPink/30 flex items-center justify-center text-accentPink mb-6 group-hover:bg-accentPink group-hover:text-black transition-colors">
+                        <img src="gmaillogo.webp" class="w-8 h-8">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1">G-Mail</h3>
+                    <p class="text-xs text-gray-400 mb-4">Email Resmi</p>
+                    <span class="px-4 py-2 rounded-xl bg-darkCard border border-darkBorder text-softPink font-bold text-sm group-hover:border-accentPink">
+                        cheviolachen@gmail.com
+                    </span>
+                </a>
+
+                <!-- Instagram dengan Gambar instagram-logo-on-circle-style-with-transparent-background-free-png.webp -->
+                <a href="https://www.instagram.com/imnadnad0914?obrf=NTF0NWMydHRrZXMy" target="_blank" class="glass-card p-8 rounded-3xl flex flex-col items-center text-center group hover:scale-105 transition-all">
+                    <div class="w-16 h-16 rounded-2xl p-2.5 bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-6 group-hover:border-pink-500 transition-colors">
+                        <img src="instagram-logo-on-circle-style-with-transparent-background-free-png.webp" alt="Logo Instagram" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/15151a/F48FB1?text=IG'">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1">Instagram</h3>
+                    <p class="text-xs text-gray-400 mb-4">DM Saya</p>
+                    <span class="px-4 py-2 rounded-xl bg-darkCard border border-darkBorder text-pink-400 font-bold text-sm group-hover:border-pink-500">
+                        @imnadnad0914
+                    </span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. FOOTER SIMPEL -->
+    <footer class="py-8 border-t border-darkBorder/60 relative z-10 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-1">
+            <p>&copy; 2026 Melody Fitri Cheviola. All rights reserved.</p>
+            <p class="text-gray-600">SMKN 4 MALANG (GRAFIKA) • Rekayasa Perangkat Lunak C</p>
+        </div>
+    </footer>
+
+    <!-- Lucide Icons Script -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
